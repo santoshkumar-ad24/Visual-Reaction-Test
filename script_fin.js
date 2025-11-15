@@ -32,6 +32,8 @@ let gifDuration;
 let evenOnloaded;
 let higestClicked = [0];
 let highestTime = [0];
+let bestClicks = 0;
+let bestAvgTime = Infinity;
 
 
 const delay = () => {
@@ -138,6 +140,19 @@ function faultyEnd() {
     }
 }
 
+function pausedDuration() {
+    const len = Math.min(faultyStartRec.length, faultyEndRec.length);
+    let total = 0;
+    for (let i = 0; i < len; i++) {
+        const s = faultyStartRec[i];
+        const e = faultyEndRec[i];
+        if (typeof s === 'number' && typeof e === 'number' && e >= s) {
+            total += (e - s);
+        }
+    }
+    return total;
+}
+
 
 const boxClick = () => {
     isTrue = false;
@@ -147,17 +162,12 @@ const boxClick = () => {
         countDown++;
         gameBox.style.display = "none";
         endTime = new Date().getTime();
-        reactionTime = ((endTime - startTime) - (faultyEnd() - faultyStart())) / 1000;
+        reactionTime = ((endTime - startTime) - pausedDuration()) / 1000;
         reactionList.push(reactionTime);
         setTimeout(showBox, delay());
     }
     else {
-        if (seconds == 0) {
-            resultDisplay();
-        }
-        else {
-            boxClick();
-        }
+        resultDisplay();
     }
 }
 
@@ -191,23 +201,17 @@ const resultDisplay = () => {
     }
 
 
-    higestClicked.push(countDown);
-
-
-    if (countDown == Math.max(...higestClicked) && resultTime().toFixed(2) < Math.max(...highestTime)) {
-        clicked.textContent = `Clicks: ${countDown}`;
-        avgScore.textContent = `Time: ${resultTime().toFixed(2)}s`;
-    }
-    else if (countDown >= Math.max(...higestClicked)) {
-        clicked.textContent = `Clicks: ${countDown}`;
-        avgScore.textContent = `Time: ${resultTime().toFixed(2)}s`;
-        highestTime.push(resultTime().toFixed(2))
+    const avg = resultTime();
+    if (countDown > bestClicks || (countDown === bestClicks && avg < bestAvgTime)) {
+        bestClicks = countDown;
+        bestAvgTime = avg;
+        clicked.textContent = `Clicks: ${bestClicks}`;
+        avgScore.textContent = `Time: ${bestAvgTime.toFixed(2)}s`;
     }
 }
 
 
 const Updatetimer = () => {
-    clearInterval(boxTimer)
     second = String(seconds).padStart(2, '0');
     sec.textContent = second;
     if (seconds < 10) {
