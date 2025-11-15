@@ -6,31 +6,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Speed test reaction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <header>
+        <div class="navbar">
+            <h1>FunClicks</h1>
+        </div>
+        
+    </header>
     <section class="main_page">
         <div class="detail">
-            <h1 id="heading">Speed Test Reaction</h1>
+            <h1 id="heading">Visual Reaction Test</h1>
             <p id="msg">Click "Start" and wait for the box to appear!</p>
-            <button id="start_btn">Start</button>
+            <button id="start_btn" type="button">Start</button>
+            <audio id="mouseClick" src="src/mouseClick.mp3" preload="auto"></audio>
+            <div class="highScore">
+                <h3>🏆Top Score</h3>
+                <div id="clicked">Clicks: 0</div>
+                <div id="avgScore">Time: 0s</div>
+            </div>
             <div class="timer">
                 <div id="ss">30</div>
+                <audio id="audioTick" src="src/tick.mp3" preload="auto"></audio>
             </div>
+            <div class="volSlider">
+                <button class="audioCon" id="audioCon1" type="button">ᯓ𝄞</button>
+
+            </div>
+            
         </div>
+
         <div class="game_display">
-            <div id="box"></div>
+            <div class="controller">
+                <div class="musicBg">
+                    <label for="#backgroundMusic">Background Music: </label>
+                    <input type="range" id="backgroundMusic" min="0" max="1" step="0.01" value="0.9">
+                </div>
+                <div class="musicBg">
+                    <label for="#gameObj">Game Character: </label>
+                    <input type="range" id="gameObj" min="0" max="1" step="0.01" value="0.8">
+                </div>
+                <div class="btnController">
+                <button class="audioCon" id= "audioCon2" type="button">[ ▶︎ ]</button>
+                <button id="resCon" type="button">↻</button>
+                </div>
+            </div>
+            <audio id="bgMusic" src="src/bgMusic.mp3" preload="auto"></audio>
+            <div id="box">
+                <video id="videoBox" src="src/FinGame.webm" width="100%" height="100%" muted
+                    disablePictureInPicture></video>
+                <!-- <img id="imageBox" src="src/ball.gif" alt="jif" width="100%" height="100%"> -->
+                <audio src="src/gameDig.mp3" id="digGame"></audio>
+            </div>
 
             <div class="result_sec">
+                <audio id="audioPop" src="src/pop.mp3" preload="auto"></audio>
                 <p id="count"></p>
                 <div id="resultP"></div>
-                
-                <p>Thank You 🤗</p>
+
+                <p id="thank">Thank You 🤗</p>
             </div>
         </div>
 
 
+
+    </section>
+    <section>
+        <div class="features">
+        <p>Feature Coming Soon</p>
         </div>
     </section>
 
