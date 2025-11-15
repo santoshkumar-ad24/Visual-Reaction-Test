@@ -35,7 +35,7 @@ let highestTime = [0];
 
 
 const delay = () => {
-
+    isTrue = true;
     const time = (Math.random() * 1000 * 2);
     return time;
 }
