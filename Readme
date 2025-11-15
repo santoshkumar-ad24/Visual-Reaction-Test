@@ -1,25 +1,25 @@
-#🧠 Visual-Reaction-Test
-
+🧠 Visual-Reaction-Test
 A fun and interactive browser-based Reaction Speed Test Game built using HTML, CSS, and JavaScript. The goal is simple — test how fast you can click a ball that appears randomly on the screen within 30 seconds.
 
-#🎯 Game Overview
-
+🎯 Game Overview
 When you click Start, a 30-second timer begins. A ball will appear in random positions after small random delays. Your job is to click the ball as quickly as possible each time it appears. At the end, the game shows: ✅ Your average reaction time 🟢 Total number of clicks 🕒 Time remaining ❌ “Not clicked” message if you missed all balls
 
-#🧩 Features
+🧩 Features
 
 ✅ 30-second countdown timer ✅ Random delay before each ball appears ✅ Random top/left position for each ball ✅ Reaction time calculated for every click ✅ Average reaction time displayed at the end ✅ Flip animation on timer digits ✅ Clean UI with gradient button effects ✅ Fully responsive (works on desktop and mobile) ✅ “Try Again” restart system
 
-Technology	Purpose
-HTML5	Game structure
-CSS3	Styling, flip animation, gradients
-JavaScript (ES6)	Logic, DOM manipulation, event handling
+| Technology           | Purpose                                 |
+| -------------------- | --------------------------------------- |
+| **HTML5**            | Game structure                          |
+| **CSS3**             | Styling, flip animation, gradients      |
+| **JavaScript (ES6)** | Logic, DOM manipulation, event handling |
+
 🎨 UI Highlights
 
 Start button changes color (green → red) depending on state Timer digits flip on every countdown change Average reaction time displayed at the end Responsive layout with smooth transitions
 
 🧑‍💻 Author
 
-Your Name — @yourgithubusername
+Your Name — @santoshkumar-ad24
 
 Developed as a JavaScript practice project.
