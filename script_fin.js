@@ -44,6 +44,11 @@ const delay = () => {
 
 
 const startGame = () => {
+
+    clearInterval(timer);
+    clearTimeout(timeout);
+    clearTimeout(evenOnloaded);
+
     mouseClick.currentTime = 0;
     mouseClick.play();
     mouseClick.volume = 0.8;
@@ -54,8 +59,8 @@ const startGame = () => {
     masg.textContent = "Wait and Watch the ball..."
     countDown = 0;
     seconds = 30;
+    Updatetimer();
     intTimer();
-    clearTimeout(timeout);
     timeout = setTimeout(showBox, delay());
     reactionList.length = 0;
     faultyStartRec.length = 0;
@@ -299,8 +304,9 @@ resCon.addEventListener("click", () => {
     sec.textContent = "30";
     btn.style.background = "radial-gradient( rgba(0, 145, 255, 1), rgba(6, 83, 142, 1))";
     controller.style.display = "none";
-    gameBox.addEventListener("click", boxClick);
 
+    gameBox.removeEventListener("click", boxClick);
+    gameBox.addEventListener("click", boxClick);
     gameBox.style.display = "none";
     setTimeout(() => {
         startGame();
