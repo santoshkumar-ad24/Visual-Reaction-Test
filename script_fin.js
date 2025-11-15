@@ -58,6 +58,8 @@ const startGame = () => {
     clearTimeout(timeout);
     timeout = setTimeout(showBox, delay());
     reactionList.length = 0;
+    faultyStartRec.length = 0;
+    faultyEndRec.length = 0;
     setTimeout(() => {
         bgMusic.currentTime = 0;
         bgMusic.play();
@@ -95,16 +97,19 @@ function stopBoth() {
 
 const showBox = () => {
     isTrue = true;
-    faultyStartRec.length = 0;
-    faultyEndRec.length = 0;
-    playBoth();
+
+    if (controller.style.display !== "grid") {
+        playBoth();
+        digGame.onended = () => {
+            evenOnloaded = setTimeout(() => {
+                playBoth();
+            }, 1000);
+        };
+    } else {
+
+        digGame.onended = null;
+    }
     
-    digGame.onended = () => {
-        
-        evenOnloaded = setTimeout(() => {
-            playBoth();
-        }, 1000);
-    };
     gameBox.style.display = "block";
     startTime = new Date().getTime();
     gameBox.style.marginTop = `${topM()}rem`;
@@ -140,14 +145,17 @@ function faultyEnd() {
     }
 }
 
-function pausedDuration() {
-    const len = Math.min(faultyStartRec.length, faultyEndRec.length);
+function pausedDuration(start, end) {
+
     let total = 0;
-    for (let i = 0; i < len; i++) {
+    for (let i = 0; i < faultyStartRec.length; i++) {
         const s = faultyStartRec[i];
-        const e = faultyEndRec[i];
-        if (typeof s === 'number' && typeof e === 'number' && e >= s) {
-            total += (e - s);
+        const e = (i < faultyEndRec.length) ? faultyEndRec[i] : end;
+        if (typeof s !== 'number' || typeof e !== 'number') continue;
+        const overlapStart = Math.max(s, start);
+        const overlapEnd = Math.min(e, end);
+        if (overlapEnd > overlapStart) {
+            total += (overlapEnd - overlapStart);
         }
     }
     return total;
@@ -162,7 +170,7 @@ const boxClick = () => {
         countDown++;
         gameBox.style.display = "none";
         endTime = new Date().getTime();
-        reactionTime = ((endTime - startTime) - pausedDuration()) / 1000;
+        reactionTime = ((endTime - startTime) - pausedDuration(startTime, endTime)) / 1000;
         reactionList.push(reactionTime);
         setTimeout(showBox, delay());
     }
